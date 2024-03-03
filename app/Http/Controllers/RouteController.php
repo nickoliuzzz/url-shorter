@@ -3,26 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RouteRequest;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Service\RouteService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RouteController extends BaseController
 {
-    use AuthorizesRequests, ValidatesRequests;
-
-    public function getShortLink(RouteRequest $request): JsonResponse
+    public function getShortLink(RouteRequest $request, RouteService $service): JsonResponse
     {
-        dd(123);
-//        $this->($request, [
-//            'route' => 'required|max:15'
-//        ]);
-//        $asd =$request->validate([
-//            'route' => 'required|max:15'
-//        ]);
-        dd(123);
+         $hash = $service->getHash($request->get('url'));
+
+         return new JsonResponse($hash);
+    }
+
+    public function redirectToUrl(string $hash, RouteService $service): Response
+    {
+         $url = $service->getUrl($hash);
+         if ($url === null) {
+             throw new NotFoundHttpException();
+         }
+
+        return redirect()->away((is_null(parse_url($url, PHP_URL_HOST)) ? '//' : '').$url);
     }
 }

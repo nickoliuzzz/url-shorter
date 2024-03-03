@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\SafeUrl;
+
 class RouteRequest extends JsonRequest
 {
     /**
@@ -20,7 +22,7 @@ class RouteRequest extends JsonRequest
     public function rules(): array
     {
         return [
-            'route' => 'required|max:15'
+            'url' => ['required', 'url', resolve(SafeUrl::class)]
         ];
     }
 }
