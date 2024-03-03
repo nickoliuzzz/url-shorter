@@ -12,3 +12,5 @@ Some of them are:
 
 * Some kind of caching of often used data (for any url which was asked or just created we could expect that it will be called again soon)
 * Checking of correct url should be moved from validation of request to last step before saving to database (because it's the most heavy part of this request and if we already have such url we don't need to check it again)
+* Tests adding
+* Ci\Di process and tools for maintaining code quality
