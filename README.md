@@ -5,6 +5,8 @@ If you want to try use it locally, I can give you key or help to generate
 
 Now on all envs except production used UrlCheckerLocal that only mock checking url
 
+Also it would be better to separate frontend and backend in a more clear way.
+
 **Dump of database is in file backup.sql in root of project.**
 
 For backend side there are a lot of improvements that could be added.
